@@ -1,8 +1,9 @@
-package pages;
+package pages.levels;
 
 import driver.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import pages.WebPage;
 
 import java.util.List;
 import java.util.stream.Collectors;

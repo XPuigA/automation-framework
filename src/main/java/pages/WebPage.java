@@ -4,7 +4,7 @@ import driver.Driver;
 
 public abstract class WebPage {
 
-    Driver driver;
+    protected Driver driver;
 
     protected WebPage(Driver driver) {
         this.driver = driver;

@@ -105,4 +105,17 @@ public abstract class Driver {
                 .pollingEvery(Duration.ofSeconds(1))
                 .until(ExpectedConditions.invisibilityOf(element));
     }
+
+    public void clearAndWrite(String locator, String text) {
+        clearAndWrite(By.cssSelector(locator), text);
+    }
+
+    public void clearAndWrite(By selector, String text) {
+        clearAndWrite(findElement(selector), text);
+    }
+
+    private void clearAndWrite(WebElement element, String text) {
+        element.clear();
+        element.sendKeys(text);
+    }
 }
