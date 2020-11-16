@@ -3,6 +3,7 @@ package driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -114,8 +115,43 @@ public abstract class Driver {
         clearAndWrite(findElement(selector), text);
     }
 
-    private void clearAndWrite(WebElement element, String text) {
+    public void clearAndWrite(WebElement element, String text) {
         element.clear();
         element.sendKeys(text);
+    }
+
+    public void waitForAlert() {
+        new WebDriverWait(webDriver, 10)
+                .pollingEvery(Duration.ofSeconds(1))
+                .until(ExpectedConditions.alertIsPresent());
+    }
+
+    public void writeInAlert(String text) {
+        waitForAlert();
+        webDriver.switchTo().alert().sendKeys(text);
+    }
+
+    public void acceptAlert() {
+        waitForAlert();
+        webDriver.switchTo().alert().accept();
+    }
+
+    public void dismissAlert() {
+        waitForAlert();
+        webDriver.switchTo().alert().dismiss();
+    }
+
+    public void dragAndDrop(String elementToMove, String destinationElement) {
+        dragAndDrop(By.cssSelector(elementToMove), By.cssSelector(destinationElement));
+    }
+
+    public void dragAndDrop(By elementToMove, By destinationElement) {
+        dragAndDrop(findElement(elementToMove), findElement(destinationElement));
+    }
+
+    public void dragAndDrop(WebElement elementToMove, WebElement destinationElement) {
+        Actions actions = new Actions(webDriver);
+        actions.dragAndDrop(elementToMove, destinationElement).build().perform();
+        actions.release().build().perform();
     }
 }

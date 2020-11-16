@@ -6,7 +6,7 @@ public abstract class WebPage {
 
     protected Driver driver;
 
-    protected WebPage(Driver driver) {
+    public WebPage(Driver driver) {
         this.driver = driver;
     }
 }

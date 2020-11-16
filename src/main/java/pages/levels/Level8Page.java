@@ -1,17 +1,20 @@
 package pages.levels;
 
 import driver.Driver;
-import org.openqa.selenium.WebElement;
 import pages.WebPage;
 
-public class Level7Page extends WebPage {
+public class Level8Page extends WebPage {
 
-    public Level7Page(Driver driver) {
+    public Level8Page(Driver driver) {
         super(driver);
     }
 
+    public void writeInDialog(String text) {
+        driver.writeInAlert(text);
+    }
+
     public void acceptDialog() {
-        driver.acceptAlert();;
+        driver.acceptAlert();
     }
 
     public void cancelDialog() {

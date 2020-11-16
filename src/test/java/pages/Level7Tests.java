@@ -3,7 +3,6 @@ package pages;
 import common.ManagedDriverTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pages.levels.Level6Page;
 import pages.levels.Level7Page;
 
 class Level7Tests extends ManagedDriverTest {
