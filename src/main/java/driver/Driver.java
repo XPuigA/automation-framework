@@ -1,6 +1,7 @@
 package driver;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -9,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.logging.Logger;
 
 public abstract class Driver {
@@ -16,6 +18,8 @@ public abstract class Driver {
     private static final Logger LOGGER = Logger.getLogger("MainLogger");
 
     protected WebDriver webDriver;
+
+    protected final static By LOADER_BY = By.className("loader");
 
     protected Driver(WebDriver webDriver) {
         this.webDriver = webDriver;
@@ -91,12 +95,12 @@ public abstract class Driver {
         return webDriver.getCurrentUrl();
     }
 
-    public void waitForElement(String selector) {
-        waitForElement(By.cssSelector(selector));
+    public WebElement waitForElement(String selector) {
+        return waitForElement(By.cssSelector(selector));
     }
 
-    public void waitForElement(By by) {
-        new WebDriverWait(webDriver, 30)
+    public WebElement waitForElement(By by) {
+        return new WebDriverWait(webDriver, 30)
                 .pollingEvery(Duration.ofSeconds(1))
                 .until(ExpectedConditions.presenceOfElementLocated(by));
     }
@@ -117,6 +121,18 @@ public abstract class Driver {
 
     public void clearAndWrite(WebElement element, String text) {
         element.clear();
+        element.sendKeys(text);
+    }
+
+    public void write(String locator, String text) {
+        write(By.cssSelector(locator), text);
+    }
+
+    public void write(By selector, String text) {
+        write(findElement(selector), text);
+    }
+
+    public void write(WebElement element, String text) {
         element.sendKeys(text);
     }
 
@@ -153,5 +169,15 @@ public abstract class Driver {
         Actions actions = new Actions(webDriver);
         actions.dragAndDrop(elementToMove, destinationElement).build().perform();
         actions.release().build().perform();
+    }
+
+    public void executeJavascript(String s) {
+        ((JavascriptExecutor)webDriver).executeScript(s);
+    }
+
+    public void waitForLoaderToDissapear() {
+        try {
+            waitForElementToDissapear(findElement(LOADER_BY));
+        } catch (NoSuchElementException nsr){}
     }
 }

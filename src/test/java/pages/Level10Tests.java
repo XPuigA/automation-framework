@@ -27,7 +27,7 @@ class Level10Tests extends ManagedDriverTest {
     void incorrectTest() {
         newDriver(url + "level10");
         Level10Page page = new Level10Page(driver);
-        page.setDateInInput(LocalDate.now().minus(Period.ofYears(4)));
+        page.setDateInInput(LocalDate.now());
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level10"));
     }
 }

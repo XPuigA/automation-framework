@@ -23,6 +23,9 @@ public class DriverFactory {
     }
 
     public static Driver defaultDriver() {
+        if ("CHROME".equals(System.getProperty("default.browser"))) {
+            return chromeDriver();
+        }
         return firefoxDriver();
     }
 
