@@ -10,8 +10,6 @@ import java.util.List;
 
 class Level16Tests extends ManagedDriverTest {
 
-
-
     @Test
     void correctTest() {
         newDriver(url + "level16");

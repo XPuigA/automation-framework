@@ -4,8 +4,10 @@ import driver.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.WebPage;
+import pathfinding.BFS;
+import pathfinding.Position;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Level16Page extends WebPage {
@@ -22,19 +24,25 @@ public class Level16Page extends WebPage {
         return Integer.parseInt(getLabyrinthElement().getAttribute("data-columns"));
     }
 
-    private WebElement getLabyrinthElement() {
-        return driver.findElement(".labyrinth");
-    }
-
     public void findPath() {
         int rows = getNumberOfRows();
         int columns = getNumberOfColumns();
 
-        int startRow = 0; int startColumn = 0;
-        int endRow = rows - 1; int endColumn = columns - 1;
+        Position start =  new Position(0, 0);
+        Position end = new Position(rows - 1, columns - 1);
 
         char[][] map = labyrinthAsArray(rows, columns);
+        clickPath(new BFS().findPath(start, end, rows, columns, map));
+    }
 
+    private WebElement getLabyrinthElement() {
+        return driver.findElement(".labyrinth");
+    }
+
+    private void clickPath(List<Position> path) {
+        for (Position position : path) {
+            driver.click(".cell-button[data-row=\"" + position.row + "\"][data-column=\"" + position.column + "\"]");
+        }
     }
 
     private char[][] labyrinthAsArray(int rows, int columns) {
@@ -44,11 +52,8 @@ public class Level16Page extends WebPage {
             for (int column = 0; column < columns; ++column) {
                 String cell = driver.findElement(".cell-button[data-row=\"" + row + "\"][data-column=\"" + column + "\"]").getAttribute("class");
                 map[row][column] = cell.contains("blocked") ? 'X' : ' ';
-                System.out.print(map[row][column]);
             }
-            System.out.println();
         }
-
         return map;
     }
 }
