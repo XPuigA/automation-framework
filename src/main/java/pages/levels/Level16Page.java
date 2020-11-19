@@ -1,14 +1,12 @@
 package pages.levels;
 
 import driver.Driver;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.WebPage;
 import pathfinding.BFS;
 import pathfinding.Position;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Level16Page extends WebPage {
 

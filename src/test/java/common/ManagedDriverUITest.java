@@ -8,7 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @ExtendWith(UITestWatcher.class)
 @ExtendWith(UIAfterTestExecutionCallback.class)
-public abstract class ManagedDriverTest extends AbstractTest {
+public abstract class ManagedDriverUITest extends AbstractTest {
 
     protected Driver driver = null;
 
@@ -32,15 +32,15 @@ public abstract class ManagedDriverTest extends AbstractTest {
         driver.get(url);
     }
 
+    public Driver getDriver() {
+        return driver;
+    }
+
     @AfterEach
     public void closeDriver() {
-        // Takes care of the driver if there was an exception when executing the test
+        // Takes care of the driver when the test finishes
         if (driver != null) {
-            try {
                 driver.close();
-            } catch (Exception ignored) {
-                // If all was good, no driver will have to be closed
-            }
         }
     }
 }

@@ -8,10 +8,9 @@ import java.util.logging.Logger;
 
 public abstract class AbstractTest {
 
-    protected Logger LOGGER = Logger.getLogger("MainLogger");
+    protected static final Logger LOGGER = Logger.getLogger("MainLogger");
 
     protected AbstractTest() {
-
         injectProperties("test-configuration.properties");
         String level = System.getProperty("debug.level");
         if (level != null) {

@@ -1,6 +1,8 @@
 package pages.levels;
 
 import driver.Driver;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.WebPage;
@@ -8,6 +10,7 @@ import pages.WebPage;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Execution(ExecutionMode.CONCURRENT)
 public class MainPage extends WebPage {
 
     public MainPage(Driver driver) {

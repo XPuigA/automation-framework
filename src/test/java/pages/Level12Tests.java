@@ -1,13 +1,14 @@
 package pages;
 
-import common.ManagedDriverTest;
+import common.ManagedDriverUITest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.ElementNotInteractableException;
-import pages.levels.Level11Page;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.levels.Level12Page;
 
-class Level12Tests extends ManagedDriverTest {
+@Execution(ExecutionMode.CONCURRENT)
+class Level12Tests extends ManagedDriverUITest {
 
     @Test
     void correctTest() {

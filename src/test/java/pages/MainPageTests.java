@@ -1,16 +1,18 @@
 package pages;
 
-import common.ManagedDriverTest;
+import common.ManagedDriverUITest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.levels.MainPage;
 
 import java.util.Arrays;
 import java.util.List;
 
-//@Execution(ExecutionMode.CONCURRENT)
-class MainPageTests extends ManagedDriverTest {
+@Execution(ExecutionMode.CONCURRENT)
+class MainPageTests extends ManagedDriverUITest {
 
     @Test
     @DisplayName("Check the interactable elements from the page are present")

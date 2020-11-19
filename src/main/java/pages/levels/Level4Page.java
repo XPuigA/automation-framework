@@ -12,10 +12,6 @@ public class Level4Page extends WebPage {
         super(driver);
     }
 
-    public void clickContinueButton() {
-        driver.click("#next");
-    }
-
     public void clickAllButtons() {
         List<WebElement> elements = driver.findElements(".button");
         for (WebElement element : elements) {

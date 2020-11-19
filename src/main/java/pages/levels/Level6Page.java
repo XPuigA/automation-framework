@@ -4,8 +4,6 @@ import driver.Driver;
 import org.openqa.selenium.WebElement;
 import pages.WebPage;
 
-import java.util.List;
-
 public class Level6Page extends WebPage {
 
     public Level6Page(Driver driver) {

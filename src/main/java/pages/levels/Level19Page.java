@@ -1,12 +1,7 @@
 package pages.levels;
 
 import driver.Driver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import pages.WebPage;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Level19Page extends WebPage {
 

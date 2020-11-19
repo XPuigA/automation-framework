@@ -1,13 +1,15 @@
 package pages;
 
-import common.ManagedDriverTest;
+import common.ManagedDriverUITest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import pages.levels.Level8Page;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.levels.Level9Page;
 
-class Level9Tests extends ManagedDriverTest {
+@Execution(ExecutionMode.CONCURRENT)
+class Level9Tests extends ManagedDriverUITest {
 
     @Disabled("Drag and drop does not cause the drop event to be fired")
     @Test

@@ -1,14 +1,17 @@
 package driver;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.logging.Logger;
@@ -17,7 +20,7 @@ public abstract class Driver {
 
     private static final Logger LOGGER = Logger.getLogger("MainLogger");
 
-    protected WebDriver webDriver;
+    protected final WebDriver webDriver;
 
     protected final static By LOADER_BY = By.className("loader");
 
@@ -178,6 +181,56 @@ public abstract class Driver {
     public void waitForLoaderToDissapear() {
         try {
             waitForElementToDissapear(findElement(LOADER_BY));
-        } catch (NoSuchElementException nsr){}
+        } catch (NoSuchElementException nsr){
+            // If the element was not present, there is nothing to wait for
+        }
+    }
+
+    /**
+     * Takes a screenshot of the page viewport
+     *
+     * @return path and filename of the taken screenshot
+     */
+    public String screenShot() {
+        return screenShot("");
+    }
+
+    /**
+     * Takes a screenshot of the page viewport
+     *
+     * @param prefix string that will be added as part of the name before the timestamp
+     * @return path and filename of the taken screenshot
+     */
+    public String screenShot(String prefix) {
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss-SSS"));
+        String screenShotPath = System.getProperty("screenshot.folder") + "\\" + (!prefix.isEmpty() ? prefix + "_" : "") + date + ".png";
+
+        try {
+            File screenshot = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
+            FileUtils.copyFile(screenshot, new File(screenShotPath));
+            return screenShotPath;
+        } catch (IOException e) {
+            LOGGER.severe("[IMG] Could not take screenshot. " + e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * Saves the html code of the current page
+     *
+     * @param prefix string that will be added as part of the name before the timestamp
+     * @return path and filename of the saved html
+     */
+    public String saveHtml(String prefix) {
+        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss-SSS"));
+        String htmlPath = System.getProperty("html.folder") + "\\" + (!prefix.isEmpty() ? prefix + "_" : "") + date + ".html";
+        File sourceFile = new File(htmlPath);
+        try (FileWriter writer = new FileWriter(sourceFile)){
+            writer.write(webDriver.getPageSource());
+            return htmlPath;
+        } catch (IOException e) {
+            LOGGER.severe("[HTML] Could not save page source. " + e.getMessage());
+        }
+        return null;
     }
 }

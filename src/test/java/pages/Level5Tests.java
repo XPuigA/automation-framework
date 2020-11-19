@@ -1,11 +1,14 @@
 package pages;
 
-import common.ManagedDriverTest;
+import common.ManagedDriverUITest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.levels.Level5Page;
 
-class Level5Tests extends ManagedDriverTest {
+@Execution(ExecutionMode.CONCURRENT)
+class Level5Tests extends ManagedDriverUITest {
 
     @Test
     void correctTest() {

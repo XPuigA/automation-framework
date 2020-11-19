@@ -1,18 +1,16 @@
 package pages;
 
-import common.ManagedDriverTest;
+import common.ManagedDriverUITest;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import pages.levels.Level10Page;
-import pages.levels.Level9Page;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.time.Period;
-import java.time.temporal.TemporalAmount;
 
-class Level10Tests extends ManagedDriverTest {
+@Execution(ExecutionMode.CONCURRENT)
+class Level10Tests extends ManagedDriverUITest {
 
     @Test
     void correctTest() {
