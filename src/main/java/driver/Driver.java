@@ -16,6 +16,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.logging.Logger;
 
+/**
+ * Wrapper for Webdriver.
+ * Each browser that we want to support should have a class that extends this.
+ * That way we can modify the behaviour of one or more functions in only one browser.
+ */
 public abstract class Driver {
 
     private static final Logger LOGGER = Logger.getLogger("MainLogger");
@@ -57,130 +62,254 @@ public abstract class Driver {
         webDriver.get(url);
     }
 
+    /**
+     * Find one element in the page that matches the locator
+     * @param selector selector of the element we want to find
+     * @return element that matched the locator
+     */
     public WebElement findElement(String selector) {
         return findElement(By.cssSelector(selector));
     }
 
+    /**
+     * Find one element in the page that matches the locator
+     * @param by locator of the element we want to find
+     * @return element that matched the locator
+     */
     private WebElement findElement(By by) {
         return webDriver.findElement(by);
     }
 
+    /**
+     * Finds all elements in the page that matches the locator
+     * @param selector selector of the elements we want to find
+     * @return elements that matched the locator
+     */
     public List<WebElement> findElements(String selector) {
         return findElements(By.cssSelector(selector));
     }
 
+    /**
+     * Finds all elements in the page that matches the locator
+     * @param by locator of the elements we want to find
+     * @return elements that matched the locator
+     */
     public List<WebElement> findElements(By by) {
         return webDriver.findElements(by);
     }
 
-
-    public boolean elementExists(String s) {
-        return findElements(s).size() > 0;
+    /**
+     * Checks if an element is present in the page
+     * @param selector selector of the element we want to check if exists
+     * @return boolean indicating if the element was present (true) or not (false)
+     */
+    public boolean elementExists(String selector) {
+        return findElements(selector).size() > 0;
     }
 
+    /**
+     * Checks if an element is present in the page
+     * @param by locator of the element we want to check if exists
+     * @return boolean indicating if the element was present (true) or not (false)
+     */
     public boolean elementExists(By by) {
         return findElements(by).size() > 0;
     }
 
+    /**
+     * Clicks an element in the page
+     * @param selector selector of the element to click
+     */
     public void click(String selector) {
         click(By.cssSelector(selector));
     }
 
+    /**
+     * Clicks an element in the page
+     * @param by locator of the element to click
+     */
     public void click(By by) {
         click(findElement(by));
     }
 
+    /**
+     * Clicks an element in the page
+     * @param element element to click
+     */
     public void click(WebElement element) {
         element.click();
     }
 
+    /**
+     * Gets the URL of the current page
+     * @return the url of the current page
+     */
     public String getCurrentUrl() {
         return webDriver.getCurrentUrl();
     }
 
+    /**
+     * Wait for an element to be present in the page
+     * @param selector selector of the element to wait
+     * @return the element we were waiting for
+     */
     public WebElement waitForElement(String selector) {
         return waitForElement(By.cssSelector(selector));
     }
 
+    /**
+     * Wait for an element to be present in the page
+     * @param by locator of the element to wait
+     * @return the element we were waiting for
+     */
     public WebElement waitForElement(By by) {
         return new WebDriverWait(webDriver, 30)
                 .pollingEvery(Duration.ofSeconds(1))
                 .until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
-    public void waitForElementToDissapear(WebElement element) {
+    /**
+     * Wait for an element to disappear in the page
+     * @param element element we expect to disappear
+     */
+    public void waitForElementToDisappear(WebElement element) {
         new WebDriverWait(webDriver, 30)
                 .pollingEvery(Duration.ofSeconds(1))
                 .until(ExpectedConditions.invisibilityOf(element));
     }
 
+    /**
+     * Clears an input and writes a text into an element
+     * @param locator locator of the element to clear and write into
+     * @param text text to write
+     */
     public void clearAndWrite(String locator, String text) {
         clearAndWrite(By.cssSelector(locator), text);
     }
 
+    /**
+     * Clears an input and writes a text into an element
+     * @param selector selector of the element to clear and write into
+     * @param text text to write
+     */
     public void clearAndWrite(By selector, String text) {
         clearAndWrite(findElement(selector), text);
     }
 
+    /**
+     * Clears an input and writes a text into an element
+     * @param element element to clear and write into
+     * @param text text to write
+     */
     public void clearAndWrite(WebElement element, String text) {
         element.clear();
         element.sendKeys(text);
     }
 
+    /**
+     * Writes a text into an element
+     * @param locator locator of the element to write into
+     * @param text text to write
+     */
     public void write(String locator, String text) {
         write(By.cssSelector(locator), text);
     }
 
+    /**
+     * Writes a text into an element
+     * @param selector selector of the element to write into
+     * @param text text to write
+     */
     public void write(By selector, String text) {
         write(findElement(selector), text);
     }
 
+    /**
+     * Writes a text into an element
+     * @param element element to write into
+     * @param text text to write
+     */
     public void write(WebElement element, String text) {
         element.sendKeys(text);
     }
 
+    /**
+     * Waits for an alert to be present in the page
+     */
     public void waitForAlert() {
         new WebDriverWait(webDriver, 10)
                 .pollingEvery(Duration.ofSeconds(1))
                 .until(ExpectedConditions.alertIsPresent());
     }
 
+    /**
+     * Writes a text into an alert present in the page
+     * @param text what will be written in the alert
+     */
     public void writeInAlert(String text) {
         waitForAlert();
         webDriver.switchTo().alert().sendKeys(text);
     }
 
+    /**
+     * Accepts and alert present in the page
+     */
     public void acceptAlert() {
         waitForAlert();
         webDriver.switchTo().alert().accept();
     }
 
+    /**
+     * Closes an alert present in the page
+     */
     public void dismissAlert() {
         waitForAlert();
         webDriver.switchTo().alert().dismiss();
     }
 
+    /**
+     * Makes drag and drop of one element onto another
+     * @param elementToMove selector of the element we want to drag
+     * @param destinationElement selector of the element we want to drop to
+     */
     public void dragAndDrop(String elementToMove, String destinationElement) {
         dragAndDrop(By.cssSelector(elementToMove), By.cssSelector(destinationElement));
     }
 
+    /**
+     * Makes drag and drop of one element onto another
+     * @param elementToMove locator of the element we want to drag
+     * @param destinationElement locator of the element we want to drop to
+     */
     public void dragAndDrop(By elementToMove, By destinationElement) {
         dragAndDrop(findElement(elementToMove), findElement(destinationElement));
     }
 
+    /**
+     * Makes drag and drop of one element onto another
+     * @param elementToMove element we want to drag
+     * @param destinationElement element we want to drop to
+     */
     public void dragAndDrop(WebElement elementToMove, WebElement destinationElement) {
         Actions actions = new Actions(webDriver);
         actions.dragAndDrop(elementToMove, destinationElement).build().perform();
         actions.release().build().perform();
     }
 
-    public void executeJavascript(String s) {
-        ((JavascriptExecutor)webDriver).executeScript(s);
+    /**
+     * Executes javascript code in the page
+     * @param code script to execute
+     */
+    public void executeJavascript(String code) {
+        ((JavascriptExecutor)webDriver).executeScript(code);
     }
 
+    /**
+     * Wait for the loader element to no longer be in the page
+     */
     public void waitForLoaderToDissapear() {
         try {
-            waitForElementToDissapear(findElement(LOADER_BY));
+            waitForElementToDisappear(findElement(LOADER_BY));
         } catch (NoSuchElementException nsr){
             // If the element was not present, there is nothing to wait for
         }

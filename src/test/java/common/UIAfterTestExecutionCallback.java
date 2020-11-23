@@ -7,6 +7,7 @@ import org.openqa.selenium.logging.LogEntries;
 import org.openqa.selenium.logging.LogEntry;
 import org.openqa.selenium.logging.LogType;
 import reports.AllureAttachment;
+import reports.AttachmentSingleton;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,22 +28,24 @@ public class UIAfterTestExecutionCallback implements AfterTestExecutionCallback 
         if (extensionContext.getTestMethod().isPresent()) {
             testName = extensionContext.getTestMethod().get().getName();
         }
-        if(extensionContext.getExecutionException().isPresent()) { // Test failed
-            // Process screenshot
+        // We only add evidences to the report if the test has failed
+        if(extensionContext.getExecutionException().isPresent()) {
+            // Add image of current viewport to report
             String screenshotPath = driver.screenShot(testName);
             this.attachScreenshotToReport(screenshotPath);
 
-            // Process HTML
+            // Add HTML for current page to report
             String htmlPath = driver.saveHtml(testName);
             this.attachHtmlToReport(htmlPath);
 
+            // Add browser console content to report
             this.attachJavascriptConsoleContents(driver);
 
+            // Add current url to report
             this.attachUrl(driver);
         }
     }
 
-    // Allure report functions
     private void attachScreenshotToReport(String screenshotPath) {
         this.attachFile(screenshotPath);
     }
@@ -60,19 +63,19 @@ public class UIAfterTestExecutionCallback implements AfterTestExecutionCallback 
 
         String logContent = sb.toString();
         if (!logContent.isEmpty()) {
-            AllureAttachment.add("Console log", sb.toString());
+            AttachmentSingleton.getInstance().add("Console log", sb.toString());
         }
     }
 
     private void attachUrl(Driver driver) {
-        AllureAttachment.add("Current URL", driver.getCurrentUrl());
+        AttachmentSingleton.getInstance().add("Current URL", driver.getCurrentUrl());
     }
 
     private void attachFile(String path) {
         File file = new File(path);
         Path content = Paths.get(path);
         try (InputStream is = Files.newInputStream(content)) {
-            AllureAttachment.add(file.getName(), is);
+            AttachmentSingleton.getInstance().add(file.getName(), is);
         } catch (IOException ex) {
             LOGGER.warning("Could not read: " + path);
         }

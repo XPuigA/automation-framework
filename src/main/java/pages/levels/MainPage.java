@@ -41,6 +41,6 @@ public class MainPage extends WebPage {
     public void clickCloseToast() {
         WebElement element = driver.findElement(".toast-box.visible");
         driver.click(element.findElement(By.cssSelector(".close.icon")));
-        driver.waitForElementToDissapear(element);
+        driver.waitForElementToDisappear(element);
     }
 }
