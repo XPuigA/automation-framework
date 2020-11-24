@@ -14,8 +14,6 @@ public class UITest extends AbstractTest {
 
     protected Driver driver = null;
 
-    protected String url = "https://automation-practice.web.app/";
-
     protected void newDriver() {
         this.driver = DriverFactory.defaultDriver();
     }
