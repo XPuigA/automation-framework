@@ -12,7 +12,7 @@ class Level18Tests extends ManagedDriverUITest {
 
     @Test
     void correctTest() {
-        newDriver(url + "level18");
+        goTo(url + "level18");
         Level18Page page = new Level18Page(driver);
         page.selectQuantitiesForProducts(page.getExpectedProducts());
         page.clickContinue();
@@ -21,7 +21,7 @@ class Level18Tests extends ManagedDriverUITest {
 
     @Test
     void wrongQuantities() {
-        newDriver(url + "level18");
+        goTo(url + "level18");
         Level18Page page = new Level18Page(driver);
         page.clickContinue();
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level18"));

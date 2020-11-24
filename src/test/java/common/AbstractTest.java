@@ -6,6 +6,9 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * All test classes should inherit from this
+ */
 public abstract class AbstractTest {
 
     protected static final Logger LOGGER = Logger.getLogger("MainLogger");
@@ -13,9 +16,10 @@ public abstract class AbstractTest {
     protected AbstractTest() {
         injectProperties("test-configuration.properties");
         String level = System.getProperty("debug.level");
-        if (level != null) {
-            LOGGER.setLevel(Level.parse(level));
+        if (level == null) {
+            level = "INFO";
         }
+        LOGGER.setLevel(Level.parse(level));
     }
 
     private void injectProperties(String filename) {

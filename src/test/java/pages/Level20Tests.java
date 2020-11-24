@@ -12,7 +12,7 @@ class Level20Tests extends ManagedDriverUITest {
 
     @Test
     void correctTest() {
-        newDriver(url + "level20");
+        goTo(url + "level20");
         Level20Page page = new Level20Page(driver);
         page.setCookieValue(page.getValueForCookie());
         page.clickContinue();
@@ -21,7 +21,7 @@ class Level20Tests extends ManagedDriverUITest {
 
     @Test
     void noChange() {
-        newDriver(url + "level20");
+        goTo(url + "level20");
         Level20Page page = new Level20Page(driver);
         page.clickContinue();
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level20"));
@@ -29,7 +29,7 @@ class Level20Tests extends ManagedDriverUITest {
 
     @Test
     void emptyCookie() {
-        newDriver(url + "level20");
+        goTo(url + "level20");
         Level20Page page = new Level20Page(driver);
         page.setCookieValue("");
         page.clickContinue();
@@ -38,7 +38,7 @@ class Level20Tests extends ManagedDriverUITest {
 
     @Test
     void wrongValue() {
-        newDriver(url + "level20");
+        goTo(url + "level20");
         Level20Page page = new Level20Page(driver);
         page.setCookieValue("AAAAAA");
         page.clickContinue();

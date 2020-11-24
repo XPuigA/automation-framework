@@ -12,7 +12,7 @@ class Level14Tests extends ManagedDriverUITest {
 
     @Test
     void correctTest() {
-        newDriver(url + "level14");
+        goTo(url + "level14");
         Level14Page page = new Level14Page(driver);
         page.setText(page.getExpectedText());
         page.setPassword(page.getExpectedPassword());
@@ -24,7 +24,7 @@ class Level14Tests extends ManagedDriverUITest {
 
     @Test
     void emptyFields() {
-        newDriver(url + "level14");
+        goTo(url + "level14");
         Level14Page page = new Level14Page(driver);
         page.clickContinue();
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level14"));
@@ -32,7 +32,7 @@ class Level14Tests extends ManagedDriverUITest {
 
     @Test
     void wrongText() {
-        newDriver(url + "level14");
+        goTo(url + "level14");
         Level14Page page = new Level14Page(driver);
         page.setText("RANDOM_TEXT");
         page.setPassword(page.getExpectedPassword());

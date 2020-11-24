@@ -14,7 +14,7 @@ class Level10Tests extends ManagedDriverUITest {
 
     @Test
     void correctTest() {
-        newDriver(url + "level10");
+        goTo(url + "level10");
         Level10Page page = new Level10Page(driver);
         LocalDate date = page.getDateInPage();
         page.setDateInInput(date);
@@ -23,7 +23,7 @@ class Level10Tests extends ManagedDriverUITest {
 
     @Test
     void incorrectTest() {
-        newDriver(url + "level10");
+        goTo(url + "level10");
         Level10Page page = new Level10Page(driver);
         page.setDateInInput(LocalDate.now());
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level10"));

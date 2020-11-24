@@ -12,7 +12,7 @@ class Level3Tests extends ManagedDriverUITest {
 
     @Test
     void correctTest() {
-        newDriver(url + "level3");
+        goTo(url + "level3");
         Level3Page page = new Level3Page(driver);
         page.fillInputTextbox(page.getGeneratedToken());
         page.clickContinueButton();
@@ -21,7 +21,7 @@ class Level3Tests extends ManagedDriverUITest {
 
     @Test
     void emptyInputTest() {
-        newDriver(url + "level3");
+        goTo(url + "level3");
         Level3Page page = new Level3Page(driver);
         page.clickContinueButton();
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level3"));
@@ -29,7 +29,7 @@ class Level3Tests extends ManagedDriverUITest {
 
     @Test
     void wrongInputTest() {
-        newDriver(url + "level3");
+        goTo(url + "level3");
         Level3Page page = new Level3Page(driver);
         page.fillInputTextbox("whatever");
         page.clickContinueButton();

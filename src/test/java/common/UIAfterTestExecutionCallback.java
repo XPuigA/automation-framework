@@ -17,13 +17,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
 
+/**
+ * This class takes care of saving evidences and add them to the test report when it is finished.
+ */
 public class UIAfterTestExecutionCallback implements AfterTestExecutionCallback {
 
     protected static final Logger LOGGER = Logger.getLogger("MainLogger");
 
     @Override
     public void afterTestExecution(ExtensionContext extensionContext) {
-        Driver driver = ((ManagedDriverUITest) extensionContext.getTestInstance().get()).getDriver();
+        Driver driver = ((UITest) extensionContext.getTestInstance().get()).getDriver();
         String testName = "";
         if (extensionContext.getTestMethod().isPresent()) {
             testName = extensionContext.getTestMethod().get().getName();

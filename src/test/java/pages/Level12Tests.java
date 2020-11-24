@@ -12,7 +12,7 @@ class Level12Tests extends ManagedDriverUITest {
 
     @Test
     void correctTest() {
-        newDriver(url + "level12");
+        goTo(url + "level12");
         Level12Page page = new Level12Page(driver);
         page.clickAllButtonsInOrder();
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level13"));
@@ -20,7 +20,7 @@ class Level12Tests extends ManagedDriverUITest {
 
     @Test
     void clickOnly4Buttons () {
-        newDriver(url + "level12");
+        goTo(url + "level12");
         Level12Page page = new Level12Page(driver);
         page.clickButtonAtPosition(1);
         page.clickButtonAtPosition(2);

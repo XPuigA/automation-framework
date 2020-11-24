@@ -12,7 +12,7 @@ class Level6Tests extends ManagedDriverUITest {
 
     @Test
     void correctTest() {
-        newDriver(url + "level6");
+        goTo(url + "level6");
         Level6Page page = new Level6Page(driver);
         page.findAndClickYesButton();
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level7"));
@@ -20,7 +20,7 @@ class Level6Tests extends ManagedDriverUITest {
 
     @Test
     void clickNoButtonHasNoEffect() {
-        newDriver(url + "level6");
+        goTo(url + "level6");
         Level6Page page = new Level6Page(driver);
         page.findAndClickNoButton();
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level6"));

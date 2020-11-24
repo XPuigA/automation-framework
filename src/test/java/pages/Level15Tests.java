@@ -14,7 +14,7 @@ class Level15Tests extends ManagedDriverUITest {
 
     @Test
     void correctTest() {
-        newDriver(url + "level15");
+        goTo(url + "level15");
         Level15Page page = new Level15Page(driver);
         page.selectSeats(page.getSeatsToSelect());
         page.clickContinue();
@@ -23,7 +23,7 @@ class Level15Tests extends ManagedDriverUITest {
 
     @Test
     void noSeatsSelected() {
-        newDriver(url + "level15");
+        goTo(url + "level15");
         Level15Page page = new Level15Page(driver);
         page.clickContinue();
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level15"));
@@ -31,7 +31,7 @@ class Level15Tests extends ManagedDriverUITest {
 
     @Test
     void firstThreeSeats() {
-        newDriver(url + "level15");
+        goTo(url + "level15");
         Level15Page page = new Level15Page(driver);
         List<String> enabledSeats = page.getAllEnabledSeats().subList(0, 3);
         page.selectSeats(enabledSeats);

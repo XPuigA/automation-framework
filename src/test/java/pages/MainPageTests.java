@@ -17,7 +17,7 @@ class MainPageTests extends ManagedDriverUITest {
     @Test
     @DisplayName("Check the interactable elements from the page are present")
     void testPageComposition() {
-        newDriver(url);
+        goTo(url);
 
         MainPage mainPage = new MainPage(driver);
         List<String> expectedOptions = Arrays.asList("Selenium", "Watir", "WebdriverIO", "CypressIO");
@@ -31,7 +31,7 @@ class MainPageTests extends ManagedDriverUITest {
     @Test
     @DisplayName("Check the start button works")
     void testStartButtonWorks() {
-        newDriver(url);
+        goTo(url);
 
         MainPage mainPage = new MainPage(driver);
         mainPage.clickStartButton();
@@ -41,7 +41,7 @@ class MainPageTests extends ManagedDriverUITest {
     @Test
     @DisplayName("Check the close toast button works")
     void testCloseToastWorks() {
-        newDriver(url);
+        goTo(url);
 
         MainPage mainPage = new MainPage(driver);
         Assertions.assertTrue(mainPage.toastMessageIsPresentAndVisible(), "Toast message is present");

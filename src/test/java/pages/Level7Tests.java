@@ -12,14 +12,14 @@ class Level7Tests extends ManagedDriverUITest {
 
     @Test
     void correctTest() {
-        newDriver(url + "level7");
+        goTo(url + "level7");
         Level7Page page = new Level7Page(driver);
         page.acceptDialog();
     }
 
     @Test
     void cancelDialogTest() {
-        newDriver(url + "level7");
+        goTo(url + "level7");
         Level7Page page = new Level7Page(driver);
         page.cancelDialog();
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level7"));

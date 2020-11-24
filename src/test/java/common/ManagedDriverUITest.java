@@ -4,36 +4,19 @@ import driver.Browser;
 import driver.Driver;
 import driver.DriverFactory;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+/**
+ * Use this class if you want the driver to be automatically opened before the test and closed after it.
+ */
 @ExtendWith(UITestWatcher.class)
 @ExtendWith(UIAfterTestExecutionCallback.class)
-public abstract class ManagedDriverUITest extends AbstractTest {
+public abstract class ManagedDriverUITest extends UITest {
 
-    protected Driver driver = null;
-
-    protected String url = "https://automation-practice.web.app/";
-
-    protected void newDriver() {
-        this.driver = DriverFactory.defaultDriver();
-    }
-
-    protected void newDriver(Browser browser) {
-        this.driver = DriverFactory.getDriver(browser);
-    }
-
-    protected void newDriver(String url) {
+    @BeforeEach
+    public void createDefaultDriver() {
         newDriver();
-        driver.get(url);
-    }
-
-    protected void newDriver(Browser browser, String url) {
-        newDriver(browser);
-        driver.get(url);
-    }
-
-    public Driver getDriver() {
-        return driver;
     }
 
     @AfterEach

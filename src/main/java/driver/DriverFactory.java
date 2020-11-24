@@ -8,6 +8,9 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Factory for drivers. Creates drivers for the wanted browsers or by the one specied in test-configuration.properties.
+ */
 public class DriverFactory {
 
     private DriverFactory() {}

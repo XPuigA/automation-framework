@@ -14,7 +14,7 @@ class Level9Tests extends ManagedDriverUITest {
     @Disabled("Drag and drop does not cause the drop event to be fired")
     @Test
     void correctTest() {
-        newDriver(url + "level9");
+        goTo(url + "level9");
         Level9Page page = new Level9Page(driver);
         page.doDragAndDrop();
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level10"));

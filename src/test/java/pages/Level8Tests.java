@@ -12,7 +12,7 @@ class Level8Tests extends ManagedDriverUITest {
 
     @Test
     void correctTest() {
-        newDriver(url + "level8");
+        goTo(url + "level8");
         Level8Page page = new Level8Page(driver);
         page.writeInDialog("automation-rocks");
         page.acceptDialog();
@@ -21,7 +21,7 @@ class Level8Tests extends ManagedDriverUITest {
 
     @Test
     void cancelDialogTest() {
-        newDriver(url + "level8");
+        goTo(url + "level8");
         Level8Page page = new Level8Page(driver);
         page.cancelDialog();
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level8"));
@@ -29,7 +29,7 @@ class Level8Tests extends ManagedDriverUITest {
 
     @Test
     void wrongInputTest() {
-        newDriver(url + "level8");
+        goTo(url + "level8");
         Level8Page page = new Level8Page(driver);
         page.writeInDialog("random-text");
         page.acceptDialog();

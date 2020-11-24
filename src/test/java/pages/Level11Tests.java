@@ -13,7 +13,7 @@ class Level11Tests extends ManagedDriverUITest {
 
     @Test
     void correctTest() {
-        newDriver(url + "level11");
+        goTo(url + "level11");
         Level11Page page = new Level11Page(driver);
         page.makeTheButtonVisibleAndClickIt();
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level12"));
@@ -21,7 +21,7 @@ class Level11Tests extends ManagedDriverUITest {
 
     @Test
     void clickTheButtonWithoutItBeingVisible() {
-        newDriver(url + "level11");
+        goTo(url + "level11");
         Level11Page page = new Level11Page(driver);
         Assertions.assertThrows(ElementNotInteractableException.class, page::clickTheButton);
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level11"));

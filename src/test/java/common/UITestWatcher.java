@@ -5,6 +5,9 @@ import org.junit.jupiter.api.extension.TestWatcher;
 
 import java.util.Optional;
 
+/**
+ * If we want to make some special operation when the test finishes with a specific state.
+ */
 public class UITestWatcher implements TestWatcher {
 
     @Override

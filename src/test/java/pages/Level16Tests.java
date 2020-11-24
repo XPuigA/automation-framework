@@ -12,7 +12,7 @@ class Level16Tests extends ManagedDriverUITest {
 
     @Test
     void correctTest() {
-        newDriver(url + "level16");
+        goTo(url + "level16");
         Level16Page page = new Level16Page(driver);
         page.findPath();
         Assertions.assertTrue(driver.getCurrentUrl().endsWith("level17"));
