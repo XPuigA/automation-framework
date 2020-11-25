@@ -21,8 +21,9 @@ public class DriverFactory {
                 return chromeDriver();
             case FIREFOX:
                 return firefoxDriver();
+            default:
+                return defaultDriver();
         }
-        return defaultDriver();
     }
 
     public static Driver defaultDriver() {
@@ -36,12 +37,6 @@ public class DriverFactory {
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.setAcceptInsecureCerts(true);
         chromeOptions.addArguments("--incognito");
-
-        Map<String, Object> experimentalOptions = new HashMap<>();
-        experimentalOptions.put("download.default_directory", System.getProperty("java.io.tmpdir"));
-        experimentalOptions.put("download.prompt_for_download", false);
-        experimentalOptions.put("plugins.always_open_pdf_externally", true);
-        chromeOptions.setExperimentalOption("prefs", experimentalOptions);
         return chromeOptions;
     }
 
