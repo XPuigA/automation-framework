@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 import java.util.logging.Logger;
 
 /**
- * Wrapper for Webdriver.
+ * Proxy for Webdriver.
  * Each browser that we want to support should have a class that extends this.
  * That way we can modify the behaviour of one or more functions in only one browser.
  */
